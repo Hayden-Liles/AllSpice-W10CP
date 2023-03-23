@@ -13,23 +13,46 @@ namespace W10CP.Repositories
         {
             string sql = @"
             INSERT INTO recipes
-            (title, img, category, creatorId)
+            (title, instructions, img, category, creatorId)
             VALUES
-            ('title', 'notImage', 'Category', '641b5a46851b5157202b8287');
+            (@title, @instructions, @img, @category, @creatorId);
+            SELECT LAST_INSERT_ID();
             ";
             int id = _db.ExecuteScalar<int>(sql, recipeData);
             recipeData.id = id;
             return recipeData;
         }
 
+        internal Recipe GetOneRecipe(int id)
+        {
+            string sql = @"
+            SELECT
+            recipes.*,
+            accounts.*
+            from recipes
+            JOIN accounts ON recipes.creatorId = accounts.id
+            WHERE recipes.id = @id
+            ";
+            Recipe recipe = _db.Query<Recipe, Account, Recipe>(sql, (recipe, acc) => {
+                recipe.creator = acc;
+                return recipe;
+            }, new{ id }).FirstOrDefault();
+            return recipe;
+        }
+
         internal List<Recipe> GetRecipes()
         {
             string sql = @"
             SELECT
-            *
-            FROM recipes;
+            recipes.*,
+            accounts.*
+            FROM recipes
+            JOIN accounts ON recipes.creatorId = accounts.id;
             ";
-            List<Recipe> recipes = _db.Query<Recipe>(sql).ToList();
+            List<Recipe> recipes = _db.Query<Recipe, Account, Recipe>(sql, (recipe, acc) => {
+                recipe.creator = acc;
+                return recipe;
+            }).ToList();
             return recipes;
         }
 
@@ -38,6 +61,7 @@ namespace W10CP.Repositories
             string sql = @"
             UPDATE recipes SET
             title = @title,
+            instructions = @instructions,
             img = @img,
             category = @category
             WHERE id = @id;

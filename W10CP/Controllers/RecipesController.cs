@@ -32,13 +32,12 @@ namespace W10CP.Controllers
 
         [HttpPut("{recipeId}")]
         [Authorize]
-
         async public Task<ActionResult<Recipe>> UpdateRecipe([FromBody] Recipe recipeData, int recipeId){
             try 
             {
                 Account accountInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
                 recipeData.id = recipeId;
-                Recipe recipe = _recipesService.UpdateRecipe(recipeData, accountInfo);
+                Recipe recipe = _recipesService.UpdateRecipe(recipeData, accountInfo.Id);
                 return Ok(recipe);
             }
             catch (Exception e)
@@ -53,6 +52,19 @@ namespace W10CP.Controllers
             {
                 List<Recipe> recipes = _recipesService.GetRecipes();
                 return Ok(recipes);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{recipeId}")]
+        public ActionResult<Recipe> GetOneRecipe(int recipeId){
+            try 
+            {
+                Recipe recipe = _recipesService.GetOneRecipe(recipeId);
+                return Ok(recipe);
             }
             catch (Exception e)
             {

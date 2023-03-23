@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS recipes(
 INSERT INTO recipes
 (title, instructions, img, category, creatorId)
 VALUES
-('title', 'notImage', 'Category', '641b5a46851b5157202b8287');
+('title', 'these are some cool instructions','notImage', 'category', '641b5a46851b5157202b8287');
 
 SELECT 
 rec.*,
@@ -30,3 +30,9 @@ acc.name,
 acc.picture
 FROM recipes rec
 JOIN accounts acc ON rec.creatorId = acc.id;
+
+UPDATE recipes SET
+title = 'this is a updated title',
+img = 'THIS IS not an img :O',
+category = 'this is an amazing category'
+WHERE id = 1;
