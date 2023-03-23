@@ -32,5 +32,18 @@ namespace W10CP.Repositories
             List<Recipe> recipes = _db.Query<Recipe>(sql).ToList();
             return recipes;
         }
+
+        internal Recipe UpdateRecipe(Recipe recipeData)
+        {
+            string sql = @"
+            UPDATE recipes SET
+            title = @title,
+            img = @img,
+            category = @category
+            WHERE id = @id;
+            ";
+            int rows = _db.Execute(sql, recipeData);
+            return recipeData;
+        }
     }
 }

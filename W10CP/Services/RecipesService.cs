@@ -20,5 +20,14 @@ namespace W10CP.Services
             List<Recipe> recipes = _repo.GetRecipes();
             return recipes;
         }
+
+        internal Recipe UpdateRecipe(Recipe recipeData, Account accountInfo)
+        {
+            if(recipeData.creatorId != accountInfo.Id){
+                throw new UnauthorizedAccessException("You are unable to edit this Recipe");
+            }
+            Recipe recipe = _repo.UpdateRecipe(recipeData);
+            return recipe;
+        }
     }
 }

@@ -30,6 +30,22 @@ namespace W10CP.Controllers
             }
         }
 
+        [HttpPut]
+        [Authorize]
+
+        async public Task<ActionResult<Recipe>> UpdateRecipe([FromBody] Recipe recipeData){
+            try 
+            {
+                Account accountInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+                Recipe recipe = _recipesService.UpdateRecipe(recipeData, accountInfo);
+                return Ok(recipe);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpGet]
         public ActionResult<List<Recipe>> GetRecipes(){
             try 
