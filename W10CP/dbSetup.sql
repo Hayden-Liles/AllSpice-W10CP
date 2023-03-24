@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS accounts(
   picture varchar(255) COMMENT 'User Picture'
 ) default charset utf8 COMMENT '';
 
+-- SECTION RECIPES
+
 CREATE TABLE IF NOT EXISTS recipes(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'the recipe ID',
   title VARCHAR (255) NOT NULL,
@@ -16,15 +18,6 @@ CREATE TABLE IF NOT EXISTS recipes(
   creatorId VARCHAR(255) NOT NULL COMMENT 'the creator ID',
 
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
-) default charset utf8 COMMENT '';
-
-CREATE TABLE IF NOT EXISTS ingredients(
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'the ingredient ID',
-  name VARCHAR(255) NOT NULL,
-  qunatity VARCHAR(255) NOT NULL,
-  recipeId INT NOT NULL COMMENT 'the recipe ID',
-
-  FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
 INSERT INTO recipes
@@ -46,3 +39,13 @@ img = 'THIS IS not an img :O',
 category = 'this is an amazing category'
 WHERE id = 1;
 
+-- SECTION INGREDIENTS
+
+CREATE TABLE IF NOT EXISTS ingredients(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'the ingredient ID',
+  name VARCHAR(255) NOT NULL,
+  qunatity VARCHAR(255) NOT NULL,
+  recipeId INT NOT NULL COMMENT 'the recipe ID',
+
+  FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
