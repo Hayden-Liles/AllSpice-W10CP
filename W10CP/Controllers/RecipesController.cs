@@ -71,5 +71,20 @@ namespace W10CP.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpDelete("{recipeId}")]
+        [Authorize]
+        async public Task<ActionResult<Recipe>> DeleteRecipe(int recipeId){
+            try 
+            {
+                Account accountInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+                _recipesService.DeleteRecipe(recipeId, accountInfo.Id);
+                return Ok("Successfully Deleted");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

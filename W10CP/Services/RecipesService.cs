@@ -43,5 +43,17 @@ namespace W10CP.Services
             Recipe recipe = _repo.UpdateRecipe(checkRec);
             return recipe;
         }
+
+        internal void DeleteRecipe(int recipeId, string id)
+        {
+            Recipe checkRec = _repo.GetOneRecipe(recipeId);
+            if(checkRec == null){
+                throw new Exception("no recipe with such ID");
+            }
+            if(checkRec.creatorId != id){
+                throw new Exception("You are unable to delete this Recipe");
+            }
+            _repo.DeleteRecipe(recipeId);
+        }
     }
 }

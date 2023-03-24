@@ -18,6 +18,15 @@ CREATE TABLE IF NOT EXISTS recipes(
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
+CREATE TABLE IF NOT EXISTS ingredients(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'the ingredient ID',
+  name VARCHAR(255) NOT NULL,
+  qunatity VARCHAR(255) NOT NULL,
+  recipeId INT NOT NULL COMMENT 'the recipe ID',
+
+  FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+
 INSERT INTO recipes
 (title, instructions, img, category, creatorId)
 VALUES
@@ -36,3 +45,4 @@ title = 'this is a updated title',
 img = 'THIS IS not an img :O',
 category = 'this is an amazing category'
 WHERE id = 1;
+

@@ -23,6 +23,19 @@ namespace W10CP.Repositories
             return recipeData;
         }
 
+        internal void DeleteRecipe(int recipeId)
+        {
+            string sql = @"
+            DELETE
+            FROM recipes
+            WHERE recipes.id = @recipeId;
+            ";
+            int check = _db.Execute(sql, new { recipeId });
+            if(check == 0){
+                throw new Exception("no recipe with such ID");
+            }
+        }
+
         internal Recipe GetOneRecipe(int id)
         {
             string sql = @"
@@ -37,6 +50,9 @@ namespace W10CP.Repositories
                 recipe.creator = acc;
                 return recipe;
             }, new{ id }).FirstOrDefault();
+            if(recipe == null){
+                throw new Exception("no recipe with such ID");
+            }
             return recipe;
         }
 
