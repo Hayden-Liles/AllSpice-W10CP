@@ -44,8 +44,50 @@ WHERE id = 1;
 CREATE TABLE IF NOT EXISTS ingredients(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'the ingredient ID',
   name VARCHAR(255) NOT NULL,
-  qunatity VARCHAR(255) NOT NULL,
+  quantity VARCHAR(255) NOT NULL,
   recipeId INT NOT NULL COMMENT 'the recipe ID',
 
   FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
+
+INSERT INTO ingredients
+(name, quantity, recipeId)
+VALUES
+('name', 'quantity', 1);
+
+SELECT
+ing.*,
+rec.title
+FROM ingredients ing
+JOIN recipes rec ON ing.recipeId = rec.id;
+
+DELETE
+FROM ingredients
+WHERE id = 3;
+
+UPDATE ingredients SET
+name = 'this is a updated name',
+quantity = 'this is a quantity'
+WHERE id = 1;
+
+-- SECTION FAVORITES
+
+CREATE TABLE IF NOT EXISTS favorites(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'the favorite ID',
+  recipeId INT NOT NULL COMMENT 'the recipe ID',
+  accountId VARCHAR(255) NOT NULL COMMENT 'the account ID',
+
+  FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE,
+  FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE
+) default charset utf8 COMMENT '';
+
+INSERT INTO favorites
+(recipeId, accountId)
+VALUES
+(1, '641b5a46851b5157202b8287');
+
+DELETE
+FROM favorites
+WHERE id = 1;
+
+
