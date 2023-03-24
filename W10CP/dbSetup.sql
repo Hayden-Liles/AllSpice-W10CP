@@ -90,4 +90,11 @@ DELETE
 FROM favorites
 WHERE id = 1;
 
+SELECT
+favorites.*,
+recipes.*
+FROM favorites
+JOIN recipes ON favorites.recipeId = recipes.id
+WHERE favorites.accountId = '641b5a46851b5157202b8287';
+
 
