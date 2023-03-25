@@ -10,4 +10,9 @@ namespace W10CP.Models
         public string creatorId { get; set; }
         public Account creator { get; set; }
     }
+
+    public class FavoriteRecipe : Recipe
+    {
+        public int favoriteId { get; set; }
+    }
 }

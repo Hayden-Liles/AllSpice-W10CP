@@ -38,15 +38,16 @@ namespace W10CP.Repositories
             return _db.QueryFirstOrDefault<Favorite>(sql, new { favoriteId });
         }
 
-        internal List<Favorite> GetFavorites(string id)
+        internal List<FavoriteRecipe> GetFavorites(string id)
         {
             string sql = @"
             SELECT
-            *
-            FROM favorites
-            WHERE accountId = @id;";
-            List<Favorite> favorites = _db.Query<Favorite>(sql, new { id }).ToList();
-            return favorites;
+            a.*,
+            f.id as favoriteId
+            FROM favorites f
+            JOIN recipes a ON a.id = f.recipeId
+            WHERE f.accountId = @id;";
+            return _db.Query<FavoriteRecipe>(sql, new { id }).ToList();
         }
     }
 }

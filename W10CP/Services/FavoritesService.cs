@@ -16,12 +16,6 @@ namespace W10CP.Services
             return favoriteData;
         }
 
-        internal List<Favorite> GetFavorites(string id)
-        {
-            List<Favorite> favorites = _repo.GetFavorites(id);
-            return favorites;
-        }
-
         internal void DeleteFavorite(int favoriteId, string userId)
         {
             Favorite favorite = _repo.GetFavoriteById(favoriteId);
@@ -36,5 +30,10 @@ namespace W10CP.Services
             _repo.DeleteFavorite(favoriteId);
         }
 
+        internal List<FavoriteRecipe> GetFavorites(string id)
+        {
+            List<FavoriteRecipe> favorites = _repo.GetFavorites(id);
+            return favorites;
+        }
     }
 }
