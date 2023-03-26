@@ -97,4 +97,6 @@ FROM favorites
 JOIN recipes ON favorites.recipeId = recipes.id
 WHERE favorites.accountId = '641b5a46851b5157202b8287';
 
-
+DELETE FROM recipes
+DELETE FROM ingredients
+DELETE FROM favorites;
