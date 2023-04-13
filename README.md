@@ -30,6 +30,10 @@
 ## About The Project
 
 Welcome to All Spice, the ultimate online culinary playground for food enthusiasts of all skill levels! Our mission is to create a vibrant, global community where passionate home cooks and professional chefs can explore, share, and celebrate the diverse flavors of the world through delicious, mouth-watering recipes.
+<ul>
+<li>Implemented Vue, Vue-Router to create a responsive, interactive front-end experience that is mobile friendly.</li>
+<li>Node.js and Express were used to create a strong backend capable of storing event and ticket data, providing features such as easy handling of HTTP requests, scalability, and user authentication.</li>
+</ul>
 
 <!-- Goal of the Project -->
 ## Goals
